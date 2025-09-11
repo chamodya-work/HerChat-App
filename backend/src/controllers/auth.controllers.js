@@ -25,8 +25,11 @@ export async function signup(req, res) {
 
         const idx=Math.floor(Math.random()*100)+1; //1-100 numbers for profile pic selection
         const randomAvatar=`https://avatar.iran.liara.run/public/${idx}.png`;
+
         
-        const newUser=await User.create(
+        // This line creates the user AND saves it to the database in one command.
+        // It triggers the 'pre('save')' middleware.
+        const newUser=await User.create( 
             {
                 email,
                 password,

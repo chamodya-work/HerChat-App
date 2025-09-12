@@ -120,7 +120,42 @@ export function logout(req, res) {
   res.status(200).json({success:true, message: "Logged out successfully" });
 }
 
-export async function onbord(req, res) {
+export async function onboard(req, res) {
+    try{
+        const userId=req.user._id; //from protectRoute middleware
+        const{fullName, bio, nativeLanguage, learningLanguage, location}=req.body;
 
+        if (!fullName || !bio || !nativeLanguage || !learningLanguage || !location) {
+            return res.status(400).json({
+                message: "All fields are required",
+                missingFields: [
+                    !fullName && "fullName",
+                    !bio && "bio",
+                    !nativeLanguage && "nativeLanguage",
+                    !learningLanguage && "learningLanguage",
+                    !location && "location",
+                ]
+                });
+
+        }
+        const updatedUser=await User.findByIdAndUpdate(userId,{
+            ...req.body, //spread operator to update all fields from req.body
+            isOnboarded:true
+        },
+        {new:true} //to return the updated user
+        );
+
+        if(!updatedUser){
+            return res.status(404).json({message:"User not found"});
+        }
+
+        //Todo: update the userinfo in stream as well
+
+        res.status(200).json({success:true,user:updatedUser});
+    }
+    catch(err){
+        console.log("Error in onbord Controller",err);
+        res.status(500).json({message: "Internal Server Error"});
+    }
 }
 

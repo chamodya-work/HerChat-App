@@ -46,7 +46,7 @@ export async function signup(req, res) {
                 name:newUser.fullName,
                 image:newUser.profilePic || "",
             });
-        console.log(`Strem User created for ${newUser.fullName}`);
+        console.log(`Stream User created for ${newUser.fullName}`);
         }
         catch(err){
             console.error("Error in creating Stream user",err);
@@ -119,3 +119,8 @@ export function logout(req, res) {
   res.clearCookie("jwt");
   res.status(200).json({success:true, message: "Logged out successfully" });
 }
+
+export async function onbord(req, res) {
+
+}
+

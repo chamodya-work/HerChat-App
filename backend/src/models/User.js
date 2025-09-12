@@ -63,7 +63,7 @@ userSchema.pre('save',async function(next) {
         next(err);
     }
 });
-
+//matchPassword method to compare entered password with hashed password in database
 userSchema.methods.matchPassword= async function(enteredPassword){
     const isPasswordCorrect= await bcrypt.compare(enteredPassword,this.password);
     return isPasswordCorrect;

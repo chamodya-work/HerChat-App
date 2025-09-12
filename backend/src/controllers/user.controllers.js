@@ -1,3 +1,5 @@
+import User from "../models/User.js";
+
 export async function getRecommendedUsers(req, res) {
     try{
         const currentUserId = req.user._id; //from protectRoute middleware
@@ -20,4 +22,18 @@ export async function getRecommendedUsers(req, res) {
     }
 }
 
-export async function getMyFriends(req, res) {}
+export async function getMyFriends(req, res) {
+    try{
+        const user=await User.findById(req.user._id)
+        .select("friends") //only give ids of friends
+        .populate("friends","fullName profilePic nativeLanguage learningLanguage"); //populate friends with fullName and profilePic and languages
+
+        res.status(200).json(user.friends); //return the friends array
+
+    }
+    catch(err){
+        console.log("Error in getMyFriends Controller",err);
+        res.status(500).json({message: "Internal Server Error"});
+
+    }
+}

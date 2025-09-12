@@ -134,7 +134,7 @@ export async function onboard(req, res) {
                     !nativeLanguage && "nativeLanguage",
                     !learningLanguage && "learningLanguage",
                     !location && "location",
-                ]
+                ].filter(Boolean) //remove falsy values
                 });
 
         }

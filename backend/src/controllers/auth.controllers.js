@@ -80,7 +80,7 @@ export async function login(req, res) {
 
         //user is authenticated, generate a JWT token 
         const token=jwt.sign(
-            {userId:newUser._id},
+            {userId:user._id},
             process.env.JWT_SECRET_KEY,
             {expiresIn:'7d'}
         );

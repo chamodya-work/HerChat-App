@@ -84,3 +84,12 @@ export async function sendFriendRequest(req,res){
         res.status(500).json({message: "Internal Server Error"});
     }
 }
+
+export async function acceptFriendRequest(req,res){
+    try{
+
+    }
+    catch(err){
+        
+    }
+}

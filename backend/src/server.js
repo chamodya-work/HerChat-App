@@ -15,7 +15,8 @@ app.use(express.json()); //middleware to parse json data
 app.use(cookieParser()); //middleware to parse cookies
 
 app.use("/api/auth",authRoutes); //main route for auth
-app.use("/api/users",userRoutes); //main route for users    
+app.use("/api/users",userRoutes); //main route for users   
+app.use("/api/chat",chatRoutes) 
 
 
 app.listen(PORT,()=>{

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router";
+import { data, Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import NotificationPage from "./pages/NotificationPage.jsx";
@@ -8,8 +8,20 @@ import ChatPage from "./pages/ChatPage.jsx";
 import OnboardingPage from "./pages/OnboardingPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import { Toaster } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 
 const App = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["todos"],
+    queryFn: async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  console.log(data);
+
   return (
     <div className="h-screen">
       <Routes>

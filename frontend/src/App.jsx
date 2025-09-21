@@ -20,10 +20,6 @@ const App = () => {
     },
   });
 
-  console.log({ data });
-  console.log({ isLoading });
-  console.log({ error });
-
   return (
     <div className="h-screen">
       <Routes>

@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage.jsx";
-import LoginPage from "./pages/LoginPage";
-import NotificationPage from "./pages/NotificationPage";
-import CallPage from "./pages/CallPage";
-import ChatPage from "./pages/ChatPage";
-import OnboardingPage from "./pages/OnboardingPage";
+import LoginPage from "./pages/LoginPage.jsx";
+import NotificationPage from "./pages/NotificationPage.jsx";
+import CallPage from "./pages/CallPage.jsx";
+import ChatPage from "./pages/ChatPage.jsx";
+import OnboardingPage from "./pages/OnboardingPage.jsx";
 
 const App = () => {
   return (

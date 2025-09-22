@@ -16,9 +16,10 @@ const App = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["todos"],
     queryFn: async () => {
-      const res = await axiosInstance.get("http://localhost:5001/api/auth/me");
+      const res = await axiosInstance.get("/api/me");
       return res.data;
     },
+    retry: false, //authcheck
   });
 
   console.log(data);

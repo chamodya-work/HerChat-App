@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ShipWheelIcon } from "lucide-react";
 import { Link } from "react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { signUp } from "../lib/api";
 
 const SignUpPage = () => {
   const [signupData, setSignupData] = useState({
@@ -9,8 +11,23 @@ const SignUpPage = () => {
     password: "",
   });
 
+  const queryClient = useQueryClient(); //this client manage query/mutation states using react query context
+
+  const {
+    mutate: signupMutation, // Function to trigger the mutation
+    isPending, // Loading state (formerly called 'isLoading')
+    error, // Error state
+  } = useMutation({
+    mutationFn: signUp, // The actual API function
+    onSuccess: () => {
+      // Callback after successful mutation
+      queryClient.invalidateQueries({ queryKey: ["authUser"] }); // After signup, this tells React Query to refetch any queries related to authUser
+    },
+  });
+
   const handleSignup = (e) => {
     e.preventDefault();
+    signupMutation(signupData);
   };
 
   return (
@@ -126,7 +143,7 @@ const SignUpPage = () => {
                 </div>
 
                 <button className="btn btn-primary w-full" type="submit">
-                  Create Account
+                  {isPending ? "Signing Up..." : "Create Account"}
                 </button>
 
                 <div className="text-center mt-4">

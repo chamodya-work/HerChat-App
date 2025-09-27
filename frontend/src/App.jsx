@@ -26,7 +26,7 @@ const App = () => {
     retry: false, //authcheck
   });
 
-  const authUser = authData.user; // ? for the not breaking the code when undefined
+  const authUser = authData?.user; // ? for the not breaking the code when undefined
 
   return (
     <div className="h-screen">

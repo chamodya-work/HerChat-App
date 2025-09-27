@@ -35,7 +35,7 @@ const SignUpPage = () => {
                 <div>
                   <h2 className="text-xl font-semibold">Create an Account</h2>
                   <p className="text-sm opacity-70">
-                    Join Streamify and start your language learning adventure!
+                    Join Herchat and start your freedom of life!
                   </p>
                 </div>
 
@@ -139,6 +139,29 @@ const SignUpPage = () => {
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+
+        {/* SIGN UP FORM RIGHT SIDE */}
+        <div className="hidden lg:flex w-full lg:w-1/2 bg-primary/10 items-center justify-center">
+          <div className="max-w-md p-8">
+            {/* Illustration */}
+            <div className="relative aspect-square max-w-sm mx-auto">
+              <img
+                src="/signup.png"
+                alt="Language connection illustration"
+                className="w-full h-full"
+              />
+            </div>
+
+            <div className="text-center space-y-3 mt-6">
+              <h2 className="text-xl font-semibold">
+                Connect with partners worldwide
+              </h2>
+              <p className="opacity-70">
+                Where 'hello' becomes 'hola,' 'bonjour,' and '你好' with friends
+              </p>
+            </div>
           </div>
         </div>
       </div>

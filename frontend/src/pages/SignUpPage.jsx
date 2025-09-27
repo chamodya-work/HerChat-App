@@ -46,6 +46,13 @@ const SignUpPage = () => {
             </span>
           </div>
 
+          {/* Errors messages if  any */}
+          {error && (
+            <div className="alert alert-error mb-4">
+              <span>{error.response.data.message}</span>
+            </div>
+          )}
+
           <div className="w-full">
             <form onSubmit={handleSignup}>
               <div className="space-y-4">
@@ -143,7 +150,14 @@ const SignUpPage = () => {
                 </div>
 
                 <button className="btn btn-primary w-full" type="submit">
-                  {isPending ? "Signing Up..." : "Create Account"}
+                  {isPending ? (
+                    <>
+                      <span className="loading loading-spinner loading-xs"></span>
+                      Loading...
+                    </>
+                  ) : (
+                    "Create Account"
+                  )}
                 </button>
 
                 <div className="text-center mt-4">

@@ -26,6 +26,9 @@ const OnboardingPage = () => {
       //refetch auth user
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
   });
 
   const handleSubmit = (e) => {

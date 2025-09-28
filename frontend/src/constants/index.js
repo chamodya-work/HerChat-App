@@ -164,6 +164,7 @@ export const THEMES = [
   
   export const LANGUAGES = [
     "English",
+    "සිංහල",
     "Spanish",
     "French",
     "German",

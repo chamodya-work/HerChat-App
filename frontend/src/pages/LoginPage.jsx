@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { login } from "../lib/api";
 import { ShipWheelIcon } from "lucide-react";
 import { Link } from "react-router";
+import useLogin from "../hooks/useLogin";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({
@@ -10,16 +11,20 @@ const LoginPage = () => {
     password: "",
   });
 
-  const queryClient = useQueryClient();
+  //this is replace with custom hook useLogin.js
 
-  const {
-    mutate: loginMutation,
-    isPending,
-    error,
-  } = useMutation({
-    mutationFn: login,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
-  });
+  // const queryClient = useQueryClient();
+
+  // const {
+  //   mutate: loginMutation,
+  //   isPending,
+  //   error,
+  // } = useMutation({
+  //   mutationFn: login,
+  //   onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+  // });
+
+  const { isPending, error, loginMutation } = useLogin();
 
   const handleLogin = (e) => {
     e.preventDefault(); //this is for prevent refreshing
@@ -125,6 +130,28 @@ const LoginPage = () => {
         </div>
 
         {/* IMAGE SECTION */}
+        <div className="hidden lg:flex w-full lg:w-1/2 bg-primary/10 items-center justify-center">
+          <div className="max-w-md p-8">
+            {/* Illustration */}
+            <div className="relative aspect-square max-w-sm mx-auto">
+              <img
+                src="\public\signup.png"
+                alt="Language connection illustration"
+                className="w-full h-full"
+              />
+            </div>
+
+            <div className="text-center space-y-3 mt-6">
+              <h2 className="text-xl font-semibold">
+                Connect with language partners worldwide
+              </h2>
+              <p className="opacity-70">
+                Practice conversations, make friends, and improve your language
+                skills together
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

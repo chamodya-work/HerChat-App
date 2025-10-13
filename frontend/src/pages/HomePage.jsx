@@ -9,6 +9,7 @@ import {
   getUserFriends,
   sendFriendRequest,
 } from "../lib/api";
+import FriendCard from "../components/FriendCard";
 
 const HomePage = () => {
   const queryClient = useQueryClient(); //this is for invalidate some queries
@@ -60,6 +61,20 @@ const HomePage = () => {
             Friend Requests
           </Link>
         </div>
+
+        {loadingFriends ? (
+          <div className="flex justify-center py-12">
+            <span className="loading loading-spinner loading-lg" />
+          </div>
+        ) : friends.length === 0 ? (
+          <p>No friends found</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {friends.map((friend) => (
+              <FriendCard key={friend._id} friend={friend} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

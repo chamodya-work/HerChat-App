@@ -10,6 +10,7 @@ import {
   sendFriendRequest,
 } from "../lib/api";
 import FriendCard from "../components/FriendCard";
+import NoFriendsFound from "../components/NoFriendsFound";
 
 const HomePage = () => {
   const queryClient = useQueryClient(); //this is for invalidate some queries
@@ -67,7 +68,7 @@ const HomePage = () => {
             <span className="loading loading-spinner loading-lg" />
           </div>
         ) : friends.length === 0 ? (
-          <p>No friends found</p>
+          <NoFriendsFound />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {friends.map((friend) => (

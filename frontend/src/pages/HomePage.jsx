@@ -1,7 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { MapPinIcon, UsersIcon } from "lucide-react";
+import {
+  CheckCircleIcon,
+  MapPinIcon,
+  UserPlusIcon,
+  UsersIcon,
+} from "lucide-react";
 
 import {
   getOutgoingFriendsReqs,
@@ -9,7 +14,7 @@ import {
   getUserFriends,
   sendFriendRequest,
 } from "../lib/api";
-import FriendCard from "../components/FriendCard";
+import FriendCard, { getLanguageFlag } from "../components/FriendCard";
 import NoFriendsFound from "../components/NoFriendsFound";
 
 const HomePage = () => {
@@ -132,6 +137,43 @@ const HomePage = () => {
                           )}
                         </div>
                       </div>
+
+                      {/* Languages with flags */}
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="badge badge-secondary">
+                          {getLanguageFlag(user.nativeLanguage)}
+                          Native: {capitialize(user.nativeLanguage)}
+                        </span>
+                        <span className="badge badge-outline">
+                          {getLanguageFlag(user.learningLanguage)}
+                          Learning: {capitialize(user.learningLanguage)}
+                        </span>
+                      </div>
+
+                      {user.bio && (
+                        <p className="text-sm opacity-70">{user.bio}</p>
+                      )}
+
+                      {/* Action button */}
+                      <button
+                        className={`btn w-full mt-2 ${
+                          hasRequestBeenSent ? "btn-disabled" : "btn-primary"
+                        } `}
+                        onClick={() => sendRequestMutation(user._id)}
+                        disabled={hasRequestBeenSent || isPending}
+                      >
+                        {hasRequestBeenSent ? (
+                          <>
+                            <CheckCircleIcon className="size-4 mr-2" />
+                            Request Sent
+                          </>
+                        ) : (
+                          <>
+                            <UserPlusIcon className="size-4 mr-2" />
+                            Send Friend Request
+                          </>
+                        )}
+                      </button>
                     </div>
                   </div>
                 );
@@ -145,3 +187,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+export const capitialize = (str) => str.charAt(0).toUpperCase() + str.slice(1);

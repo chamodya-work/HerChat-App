@@ -15,6 +15,8 @@ dotenv.config();
 const app=express();
 const PORT=process.env.PORT;
 
+const __dirname=path.resolve(); //this for calculate the path in deployment
+
 app.use(cors({
     origin:"http://localhost:5173", //frontend end url
     credentials:true //allow frontend to send cookies
@@ -27,7 +29,18 @@ app.use(cookieParser()); //middleware to parse cookies
 
 app.use("/api/auth",authRoutes); //main route for auth
 app.use("/api/users",userRoutes); //main route for users   
-app.use("/api/chat",chatRoutes) 
+app.use("/api/chat",chatRoutes);
+
+
+//this is simply create our react app as static 
+// for deployment purpose
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    });
+  }
 
 
 app.listen(PORT,()=>{

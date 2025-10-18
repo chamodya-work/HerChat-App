@@ -9,7 +9,7 @@ import {
   Chat,
   MessageInput,
   MessageList,
-  Thread,
+  // Thread,
   Window,
 } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
@@ -19,7 +19,7 @@ import ChatLoader from "../components/ChatLoader";
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
 const ChatPage = () => {
-  const { id } = useParams();
+  const { id: targetUserId } = useParams();
 
   const [chatClient, setChatClient] = useState(null);
   const [channel, setChannel] = useState(null);
@@ -35,10 +35,10 @@ const ChatPage = () => {
 
   useEffect(() => {
     const initChat = async () => {
-      if (!tokenData.token || !authUser) return;
+      if (!tokenData?.token || !authUser) return;
 
       try {
-        console.log("initializing stram chat");
+        console.log("initializing strem chat");
         const client = StreamChat.getInstance(STREAM_API_KEY);
 
         await client.connectUser(
@@ -73,10 +73,26 @@ const ChatPage = () => {
     };
 
     initChat();
-  }, []);
+  }, [tokenData, authUser, targetUserId]);
 
   if (loading || !chatClient || !channel) return <ChatLoader />;
-  return <div>ChatPage</div>;
+  return (
+    <div className="h-[93vh]">
+      <Chat client={chatClient}>
+        <Channel channel={channel}>
+          <div className="w-full relative">
+            {/* <CallButton handleVideoCall={handleVideoCall} /> */}
+            <Window>
+              <ChannelHeader />
+              <MessageList />
+              <MessageInput focus />
+            </Window>
+          </div>
+          {/* <Thread /> */}
+        </Channel>
+      </Chat>
+    </div>
+  );
 };
 
 export default ChatPage;

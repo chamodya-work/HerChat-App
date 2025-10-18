@@ -27,11 +27,15 @@ const ChatPage = () => {
 
   const { authUser } = getAuthUser();
 
+  // console.log(authUser.isLoading);
+
   const { data: tokenData } = useQuery({
     queryKey: ["streamToken"],
     queryFn: getStreamToken,
     enabled: !!authUser, //now this query is only run when authUser is available
   });
+
+  // console.log(authUser.token);
 
   useEffect(() => {
     const initChat = async () => {

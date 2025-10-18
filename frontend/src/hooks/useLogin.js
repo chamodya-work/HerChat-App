@@ -12,7 +12,16 @@ const useLogin = () => {
     error,
   } = useMutation({
     mutationFn: login,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+    
+    //newly added delay for invalidate query
+    onSuccess: async () => {
+      // Wait for cookie to be set
+      await new Promise(resolve => setTimeout(resolve, 100));
+      // Now invalidate and refetch
+      await queryClient.invalidateQueries({ queryKey: ["authUser"] });
+  },
+
+    // onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
   });
 
   return {isPending, error, loginMutation};

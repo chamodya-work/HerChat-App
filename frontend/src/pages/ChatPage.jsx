@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getAuthUser, getStreamToken } from "../lib/api";
+import { getStreamToken } from "../lib/api";
 import { useQuery } from "@tanstack/react-query";
 
 import {
@@ -15,6 +15,7 @@ import {
 import { StreamChat } from "stream-chat";
 import toast from "react-hot-toast";
 import ChatLoader from "../components/ChatLoader";
+import useAuthUser from "../hooks/useAuthUser";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
@@ -25,17 +26,25 @@ const ChatPage = () => {
   const [channel, setChannel] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const { authUser } = getAuthUser();
+  const { authUser } = useAuthUser();
 
-  // console.log(authUser.isLoading);
+  // console.log(!!authUser);
 
-  const { data: tokenData } = useQuery({
+  const {
+    data: tokenData,
+    isLoading: tokenLoading,
+    error: tokenError,
+  } = useQuery({
     queryKey: ["streamToken"],
     queryFn: getStreamToken,
     enabled: !!authUser, //now this query is only run when authUser is available
   });
 
-  // console.log(authUser.token);
+  // Debug logs - use optional chaining to avoid errors
+  // console.log("Auth User:", authUser);
+  // console.log("Token Data:", tokenData);
+  // console.log("Token:", tokenData?.token);
+  // console.log("Token Error:", tokenError);
 
   useEffect(() => {
     const initChat = async () => {

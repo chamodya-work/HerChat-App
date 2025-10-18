@@ -9,7 +9,7 @@ import {
   Chat,
   MessageInput,
   MessageList,
-  // Thread,
+  Thread,
   Window,
 } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
@@ -101,7 +101,7 @@ const ChatPage = () => {
               <MessageInput focus />
             </Window>
           </div>
-          {/* <Thread /> */}
+          <Thread />
         </Channel>
       </Chat>
     </div>
